@@ -47,4 +47,22 @@ public class Arbre {
         a.afficheArbre();
     }
 
+    public String value(String str){
+        if (type == NodeType.OPERATOR) {
+            str+="(" + value;
+        } else {
+            str += " " + value;
+        }
+        if (leftSon != null) {
+            leftSon.value(str);
+        }
+        if (rightSon != null) {
+            rightSon.value(str);
+        }
+        if (type == NodeType.OPERATOR) {
+            str+=")";
+        }
+        return str;
+    }
+
 }
