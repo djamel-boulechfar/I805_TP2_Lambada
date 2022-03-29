@@ -11,6 +11,7 @@ action code {:
     private HashMap<String,Integer> vars = new HashMap<>();
     // gestion des erreurs d'evaluation
     private boolean erreur = false;
+    // Arbre abstrait qui sera généré
 :};
 
  
@@ -39,7 +40,8 @@ terminal PLUS, MOINS, MOINS_UNAIRE, MUL, DIV, MOD, NOT, OR, AND, PAR_G, PAR_D, S
 terminal Integer ENTIER;
 terminal String IDENT;
 /* non terminaux */
-non terminal program, sequence, expression, expr;
+non terminal program, sequence;
+non terminal Arbre expression, expr;
 
 precedence nonassoc OUTPUT;
 precedence right OR;
@@ -64,7 +66,7 @@ sequence ::= expression:e1 SEMI sequence:e2
             ;
 
 // une expession est soit une affectation ,une              
-expression ::= expr:e 
+expression ::= expr:e {: e.afficheArbre(); :}
              | LET IDENT:nom EGAL expr:e                  
              | WHILE expr:cond DO expression:e 
              | IF expr:cond THEN expression:a1 ELSE expression:a2 
@@ -78,7 +80,7 @@ expr ::= NOT:op expr:e
        | expr:e1 EGAL expr:e2
        | expr:e1 GT expr:e2
        | expr:e1 GTE expr:e2
-       | expr:e1 PLUS expr:e2
+       | expr:e1 PLUS expr:e2 {: RESULT = new Arbre(NodeType.OPERATOR, "+", e1, e2); :}
        | expr:e1 MOINS expr:e2
        | expr:e1 MUL expr:e2
        | expr:e1 DIV expr:e2
@@ -87,7 +89,7 @@ expr ::= NOT:op expr:e
        | OUTPUT expr:e
        | INPUT
        | NIL
-       | ENTIER:n
+       | ENTIER:n {: RESULT = new Arbre(NodeType.INTEGER, n.toString()); :}
        | IDENT:id
        | PAR_G sequence:e PAR_D
        ;
