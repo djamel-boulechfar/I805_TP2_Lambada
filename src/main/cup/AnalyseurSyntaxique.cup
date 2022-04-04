@@ -91,5 +91,5 @@ expr ::= NOT:op expr:e
        | NIL
        | ENTIER:n {: RESULT = new Arbre(NodeType.INTEGER, n.toString()); :}
        | IDENT:id
-       | PAR_G sequence:e PAR_D
+       | PAR_G expr:e PAR_D {: RESULT = new Arbre(e);:}
        ;

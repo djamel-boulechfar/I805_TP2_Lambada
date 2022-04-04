@@ -23,6 +23,13 @@ public class Arbre {
         this.rightSon = rs;
     }
 
+    public Arbre(Arbre arbre){
+        this.type = arbre.type;
+        this.rightSon = arbre.rightSon;
+        this.leftSon = arbre.leftSon;
+        this.value = arbre.value;
+    }
+
     public void afficheArbre() {
         if (type == NodeType.OPERATOR) {
             System.out.print("(" + value);
