@@ -5,5 +5,17 @@ public enum NodeType {
     OPERATOR,
     VARIABLE,
     SEMI,
-    IDENT
-}
+    IDENT,
+    AND,
+    OR,
+    EGAL,
+    GT,
+    GTE,
+    OUTPUT,
+    INPUT,
+    NIL,
+    IF,
+    THEN,
+    WHILE,
+    NOT
+    }
