@@ -56,18 +56,18 @@ precedence left MOINS_UNAIRE;
 /* grammaire */
 // un pg est une sequence d'insctions terminee par point
 program ::= 
-    sequence:s POINT  
+    sequence:s POINT  {:RESULT = s; :}
     ;
 
 // une sequence est une suite d'instructions separes par des point virgules 
-sequence ::= expression:e1 SEMI sequence:e2
-            | expression:e
+sequence ::= expression:e1 SEMI sequence:e2 {: RESULT = new Arbre(NodeType.SEMI,";",e1,e2); :}
+            | expression:e {:RESULT = e;:}
             |
             ;
 
 // une expession est soit une affectation ,une              
-expression ::= expr:e {: e.afficheArbre() ;:}
-             | LET IDENT:nom EGAL expr:e {:(new Arbre(NodeType.OPERATOR,"let",new Arbre(NodeType.VARIABLE,nom),e)).afficheArbre(); :}
+expression ::= expr:e {: RESULT = e ;:}
+             | LET IDENT:nom EGAL expr:e {:RESULT = new Arbre(NodeType.OPERATOR,"let",new Arbre(NodeType.VARIABLE,nom),e); :}
              | WHILE expr:cond DO expression:e 
              | IF expr:cond THEN expression:a1 ELSE expression:a2 
              | error // reprise d'erreurs
@@ -90,6 +90,6 @@ expr ::= NOT:op expr:e
        | INPUT
        | NIL
        | ENTIER:n {: RESULT = new Arbre(NodeType.INTEGER, n.toString()); :}
-       | IDENT:id
-       | PAR_G expr:e PAR_D {: RESULT = new Arbre(e);:}
+       | IDENT:id {: RESULT = new Arbre(NodeType.IDENT, id.toString()); :}
+       | PAR_G sequence:e PAR_D {: RESULT = e;:}
        ;

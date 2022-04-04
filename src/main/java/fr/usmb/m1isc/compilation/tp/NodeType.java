@@ -4,5 +4,6 @@ public enum NodeType {
     INTEGER,
     OPERATOR,
     VARIABLE,
-    SEMI
+    SEMI,
+    IDENT
 }

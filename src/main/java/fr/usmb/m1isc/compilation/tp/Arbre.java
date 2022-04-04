@@ -72,4 +72,25 @@ public class Arbre {
         return str;
     }
 
+    @Override
+    public String toString() {
+        String res = "";
+        if (type == NodeType.OPERATOR || type == NodeType.SEMI) {
+            res += "(" + value;
+        } else {
+            res += " " + value;
+        }
+
+        if (leftSon != null) {
+            res += leftSon.toString();
+        }
+        if (rightSon != null) {
+            res += rightSon.toString();
+        }
+        if (type == NodeType.OPERATOR || type == NodeType.SEMI) {
+            res += ")";
+        }
+        return res;
+    }
+
 }
