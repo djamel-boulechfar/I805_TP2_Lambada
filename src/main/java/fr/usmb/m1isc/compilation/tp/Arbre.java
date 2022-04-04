@@ -57,19 +57,23 @@ public class Arbre {
     @Override
     public String toString() {
         String res = "";
-        if (type == NodeType.OPERATOR || type == NodeType.SEMI) {
+
+        //Si opération ou changement d'expression, on ouvre les parenthèses
+        if (type == NodeType.OPERATOR || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
             res += "(" + value;
         } else {
             res += " " + value;
         }
-
+        //Iterations
         if (leftSon != null) {
             res += leftSon.toString();
         }
         if (rightSon != null) {
             res += rightSon.toString();
         }
-        if (type == NodeType.OPERATOR || type == NodeType.SEMI) {
+
+        //Si opération ou changement d'expression, on ferme les parenthèses
+        if (type == NodeType.OPERATOR || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
             res += ")";
         }
         return res;
