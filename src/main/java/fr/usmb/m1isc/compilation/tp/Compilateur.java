@@ -3,6 +3,7 @@ package fr.usmb.m1isc.compilation.tp;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class Compilateur {
     private static String CHEMIN ="./src/main/compiledFiles/";
@@ -10,7 +11,7 @@ public class Compilateur {
     public Compilateur(){
     }
 
-    public void createASM(){
+    public void generateASM(Arbre arbreAbstrait){
         //Création de fichier
         try {
             // Recevoir le fichier
@@ -21,6 +22,11 @@ public class Compilateur {
             if (fichier.createNewFile()){
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fichier.getAbsolutePath()));
                 writer.append("DATA SEGMENT \n");
+                ArrayList<String> variables = new ArrayList<String>();
+                arbreAbstrait.getVariables(variables);
+                for (int i = 0; i < variables.size(); i++) {
+                    writer.append("\t " + variables.get(i) + " DD\n");
+                }
                 writer.append("DATA ENDS \n");
                 writer.append("CODE SEGMENT \n");
                 writer.append("CODE ENDS \n");
@@ -29,8 +35,6 @@ public class Compilateur {
             } else {
                 System.out.println("File already exists");
             }
-
-
         }
         catch (Exception e) {
             System.err.println(e);

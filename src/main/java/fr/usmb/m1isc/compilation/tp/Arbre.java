@@ -1,5 +1,7 @@
 package fr.usmb.m1isc.compilation.tp;
 
+import java.util.ArrayList;
+
 public class Arbre {
 
     // Attributs
@@ -59,7 +61,7 @@ public class Arbre {
         String res = "";
 
         //Si opération ou changement d'expression, on ouvre les parenthèses
-        if (type == NodeType.OPERATOR || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
+        if (type == NodeType.OPERATOR || type == NodeType.LET || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
             res += "(" + value;
         } else {
             res += " " + value;
@@ -73,10 +75,23 @@ public class Arbre {
         }
 
         //Si opération ou changement d'expression, on ferme les parenthèses
-        if (type == NodeType.OPERATOR || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
+        if (type == NodeType.OPERATOR || type == NodeType.LET ||type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
             res += ")";
         }
         return res;
+    }
+
+    public ArrayList<String> getVariables(ArrayList<String> variables) {
+        if (this.type == NodeType.LET && !variables.contains(this.value)) {
+            variables.add(this.leftSon.value);
+        }
+        if (this.leftSon != null) {
+            leftSon.getVariables(variables);
+        }
+        if (this.rightSon != null) {
+            rightSon.getVariables(variables);
+        }
+        return variables;
     }
 
 }

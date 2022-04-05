@@ -17,5 +17,6 @@ public enum NodeType {
     IF,
     THEN,
     WHILE,
-    NOT
+    NOT,
+    LET
     }
