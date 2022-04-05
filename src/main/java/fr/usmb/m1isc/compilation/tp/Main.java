@@ -15,7 +15,8 @@ public class Main {
 	@SuppressWarnings("deprecation")
 	parser p = new parser (yy);
 	//p.parse();
-		Symbol s = p.parse();
-		System.out.println(s.value);
+		//Symbol s = p.parse();
+		//System.out.println(s.value);
+		(new Compilateur()).generateASM();
     }
 }
