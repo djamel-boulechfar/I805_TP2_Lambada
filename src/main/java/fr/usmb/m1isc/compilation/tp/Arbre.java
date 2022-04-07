@@ -106,10 +106,20 @@ public class Arbre {
             }
         }
         if (this.type == NodeType.PLUS) {
-            //if (this.leftSon.type == NodeType.INTEGER && this.rightSon.type == NodeType.INTEGER) {
-                lignes.add("mov eax, " + this.leftSon.value);
-                lignes.add("add eax, " + this.rightSon.value);
-            //}
+            lignes.add("mov eax, " + this.leftSon.value);
+            lignes.add("add eax, " + this.rightSon.value);
+        }
+        if (this.type == NodeType.SUM) {
+            lignes.add("mov eax, " + this.leftSon.value);
+            lignes.add("sub eax, " + this.rightSon.value);
+        }
+        if (this.type == NodeType.MULT) {
+            lignes.add("mov eax, " + this.leftSon.value);
+            lignes.add("mul eax, " + this.rightSon.value);
+        }
+        if (this.type == NodeType.DIV) {
+            lignes.add("mov eax, " + this.leftSon.value);
+            lignes.add("div eax, " + this.rightSon.value);
         }
         if (this.type == NodeType.LET) {
             if (rightSon.type == NodeType.INTEGER) {
@@ -117,18 +127,6 @@ public class Arbre {
                 lignes.add("mov " + this.leftSon.value + ", eax");
             }
         }
-
-
-
-
-
-
-        /*if(this.type == NodeType.OPERATOR){
-
-        }
-        if (rightSon != null) {
-            rightSon.genereCode(lignes);
-        }*/
         return lignes;
     }
 
