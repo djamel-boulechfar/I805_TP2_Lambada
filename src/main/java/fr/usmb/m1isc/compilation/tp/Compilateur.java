@@ -17,20 +17,25 @@ public class Compilateur {
             // Recevoir le fichier
             File rep = new File(CHEMIN);
             File fichier =  new File(rep,"fichierCompile.asm");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fichier.getAbsolutePath()));
+            writer.append("DATA SEGMENT \n");
+            ArrayList<String> variables = new ArrayList<String>();
+            arbreAbstrait.getVariables(variables);
+            for (int i = 0; i < variables.size(); i++) {
+                writer.append("\t " + variables.get(i) + " DD\n");
+            }
+            writer.append("DATA ENDS \n");
+            writer.append("CODE SEGMENT \n");
+            ArrayList<String> lignes = new ArrayList<String>();
+            arbreAbstrait.genereCode(lignes);
+            for (int i = 0; i < lignes.size(); i++) {
+                writer.append("\t " + lignes.get(i) + "\n");
+            }
+            writer.append("CODE ENDS \n");
+            writer.close();
             // Créer un nouveau fichier
             // Vérifier s'il n'existe pas
             if (fichier.createNewFile()){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fichier.getAbsolutePath()));
-                writer.append("DATA SEGMENT \n");
-                ArrayList<String> variables = new ArrayList<String>();
-                arbreAbstrait.getVariables(variables);
-                for (int i = 0; i < variables.size(); i++) {
-                    writer.append("\t " + variables.get(i) + " DD\n");
-                }
-                writer.append("DATA ENDS \n");
-                writer.append("CODE SEGMENT \n");
-                writer.append("CODE ENDS \n");
-                writer.close();
                 System.out.println("File created");
             } else {
                 System.out.println("File already exists");
