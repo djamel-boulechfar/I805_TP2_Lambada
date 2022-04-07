@@ -18,6 +18,9 @@ public class Compilateur {
             File rep = new File(CHEMIN);
             File fichier =  new File(rep,"fichierCompile.asm");
             BufferedWriter writer = new BufferedWriter(new FileWriter(fichier.getAbsolutePath()));
+
+
+            ///On déclare les variables
             writer.append("DATA SEGMENT \n");
             ArrayList<String> variables = new ArrayList<String>();
             arbreAbstrait.getVariables(variables);
@@ -25,6 +28,9 @@ public class Compilateur {
                 writer.append("\t " + variables.get(i) + " DD\n");
             }
             writer.append("DATA ENDS \n");
+
+
+            //On générère le code
             writer.append("CODE SEGMENT \n");
             ArrayList<String> lignes = new ArrayList<String>();
             arbreAbstrait.genereCode(lignes);

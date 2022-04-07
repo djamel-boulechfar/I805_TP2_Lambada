@@ -97,6 +97,9 @@ public class Arbre {
     }
 
     public ArrayList<String> genereCode(ArrayList<String> lignes) {
+
+
+        //gestion point virgule
         if (this.type == NodeType.SEMI) {
             if (this.leftSon != null) {
                 this.leftSon.genereCode(lignes);
@@ -105,22 +108,52 @@ public class Arbre {
                 this.rightSon.genereCode(lignes);
             }
         }
+
+        //gestion addition
         if (this.type == NodeType.PLUS) {
-            lignes.add("mov eax, " + this.leftSon.value);
-            lignes.add("add eax, " + this.rightSon.value);
+            if((rightSon.type!=NodeType.INTEGER)||(leftSon.type!=NodeType.INTEGER)){
+                if((this.leftSon.type != NodeType.INTEGER)&&(this.rightSon.type == NodeType.INTEGER)){
+                    lignes.add("mov eax,"+rightSon.value);
+                    lignes.add("push eax");
+                    leftSon.genereCode(lignes);
+                    lignes.add("pop ebx");
+                    lignes.add("add eax,ebx");
+                }
+                if((this.rightSon.type != NodeType.INTEGER)&&(this.leftSon.type == NodeType.INTEGER)){
+                    lignes.add("move eax,"+leftSon.value);
+                    lignes.add("push eax");
+                    rightSon.genereCode(lignes);
+                    lignes.add("pop ebx");
+                    lignes.add("add eax,ebx");
+                }
+                if((this.rightSon.type != NodeType.INTEGER)&&(this.rightSon.type != NodeType.INTEGER)){
+                }
+            }else{
+                lignes.add("mov eax, " + this.leftSon.value);
+                lignes.add("add eax, " + this.rightSon.value);
+            }
+
         }
+
+        //gestion soustraction
         if (this.type == NodeType.SUM) {
             lignes.add("mov eax, " + this.leftSon.value);
             lignes.add("sub eax, " + this.rightSon.value);
         }
+
+        //gestion multiplication
         if (this.type == NodeType.MULT) {
             lignes.add("mov eax, " + this.leftSon.value);
             lignes.add("mul eax, " + this.rightSon.value);
         }
+
+        //gestion division
         if (this.type == NodeType.DIV) {
             lignes.add("mov eax, " + this.leftSon.value);
             lignes.add("div eax, " + this.rightSon.value);
         }
+
+        //gestion déclaration de variable
         if (this.type == NodeType.LET) {
             if (rightSon.type == NodeType.INTEGER) {
                 lignes.add("mov eax, " + this.rightSon.value);

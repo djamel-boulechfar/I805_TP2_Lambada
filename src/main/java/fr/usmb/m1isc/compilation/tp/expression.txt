@@ -1,4 +1,2 @@
-let x = 50;
-let z = 2;
-let theo = 69;
-x - z + theo.
+let x = 5;
+x+5+8+5+5+5.
