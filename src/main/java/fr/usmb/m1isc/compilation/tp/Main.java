@@ -18,5 +18,6 @@ public class Main {
 		Symbol s = p.parse();
 		Arbre arbre = (Arbre) s.value;
 		(new Compilateur()).generateASM(arbre);
+		System.out.println(arbre.toString());
     }
 }

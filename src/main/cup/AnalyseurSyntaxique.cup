@@ -81,7 +81,7 @@ expr ::= NOT:op expr:e {: RESULT = new Arbre(NodeType.NOT,"!"+e.toString()); :}
        | expr:e1 GT expr:e2 {: RESULT = new Arbre(NodeType.GT,">", e1,e2); :}
        | expr:e1 GTE expr:e2 {: RESULT = new Arbre(NodeType.GTE,">=", e1,e2); :}
        | expr:e1 PLUS expr:e2 {: RESULT = new Arbre(NodeType.PLUS, "+", e1, e2); :}
-       | expr:e1 MOINS expr:e2 {: RESULT = new Arbre(NodeType.SUM, "-", e1, e2); :}
+       | expr:e1 MOINS expr:e2 {: RESULT = new Arbre(NodeType.SUB, "-", e1, e2); :}
        | expr:e1 MUL expr:e2 {: RESULT = new Arbre(NodeType.MULT, "*", e1, e2); :}
        | expr:e1 DIV expr:e2 {: RESULT = new Arbre(NodeType.DIV, "/", e1, e2); :}
        | expr:e1 MOD expr:e2 {: RESULT = new Arbre(NodeType.MOD, "mod", e1, e2); :}

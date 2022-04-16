@@ -1,28 +1,19 @@
 DATA SEGMENT 
-	 x DD
 DATA ENDS 
 CODE SEGMENT 
-	 mov eax, 5
-	 mov x, eax
-	 mov eax,5
+	 mov eax, 400
 	 push eax
-	 mov eax,5
+	 mov eax, 4
 	 push eax
-	 mov eax,5
+	 mov eax, 2
 	 push eax
-	 mov eax,8
-	 push eax
-	 mov eax,5
-	 push eax
+	 mov eax, 2
 	 pop ebx
-	 add eax,ebx
+	 add eax, ebx
 	 pop ebx
-	 add eax,ebx
+	 div ebx, eax
+	 mov eax, ebx
 	 pop ebx
-	 add eax,ebx
-	 pop ebx
-	 add eax,ebx
-	 pop ebx
-	 add eax,ebx
-	 out eax
+	 div ebx, eax
+	 mov eax, ebx
 CODE ENDS 

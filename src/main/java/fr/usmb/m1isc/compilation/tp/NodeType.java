@@ -5,7 +5,7 @@ public enum NodeType {
     OPERATOR,
     PLUS,
     MULT,
-    SUM,
+    SUB,
     DIV,
     MOD,
     VARIABLE,
