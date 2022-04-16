@@ -1,28 +1,35 @@
 DATA SEGMENT 
+	 x DD
+	 y DD
+	 true DD
+	 false DD
 DATA ENDS 
 CODE SEGMENT 
-	 mov eax, 1
-	 push eax
 	 mov eax, 2
+	 mov x,eax
+	 mov eax, 2
+	 mov y,eax
+	 mov eax, 0
+	 mov true,eax
+	 mov eax, 1
+	 mov false,eax
+	 mov eax, x
+	 push eax
+	 mov eax, 1
+	 pop ebx
+	 add eax, ebx
+	 push eax
+	 mov eax, y
+	 push eax
+	 mov eax, 1
+	 pop ebx
+	 add eax, ebx
 	 pop ebx
 	 sub ebx, eax
-	 jg etiq_sinon_1
-	 mov eax, 1
+	 jnz etiq_sinon_1
+	 mov eax, true
 	 jmp etiq_fin_1
 	 etiq_sinon_1 :
-	 mov eax, 2
+	 mov eax, false
 	 etiq_fin_1 :
-	 out eax
-	 mov eax, 4
-	 push eax
-	 mov eax, 3
-	 pop ebx
-	 sub ebx, eax
-	 jg etiq_sinon_2
-	 mov eax, 3
-	 jmp etiq_fin_2
-	 etiq_sinon_2 :
-	 mov eax, 4
-	 etiq_fin_2 :
-	 out eax
 CODE ENDS 

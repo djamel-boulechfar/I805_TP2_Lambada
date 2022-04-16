@@ -177,10 +177,15 @@ public class Arbre {
         lignes.add("push eax");
         this.rightSon.genereCode(lignes);
         lignes.add("pop ebx");
-        //lignes.add("cmp eax, ebx");
         lignes.add("sub ebx, eax");
         if (this.type == NodeType.GT) {
             lignes.add("jg " + etiquetteSaut);
+        }
+        if (this.type == NodeType.GTE) {
+            lignes.add("jge " + etiquetteSaut);
+        }
+        if (this.type == NodeType.EGAL) {
+            lignes.add("jnz " + etiquetteSaut);
         }
     }
 

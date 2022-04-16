@@ -1,2 +1,5 @@
-if (1 < 2) then 1 else 2;
-if (4 < 3) then 3 else 4.
+let x = 2;
+let y = 2;
+let true = 0;
+let false = 1;
+if ((x + 1) = (y + 1)) then true else false.
