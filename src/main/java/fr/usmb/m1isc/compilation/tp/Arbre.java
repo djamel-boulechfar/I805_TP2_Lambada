@@ -100,47 +100,67 @@ public class Arbre {
     }
 
     public ArrayList<String> genereCode(ArrayList<String> lignes) {
-        // Gestion du point virgule
-        if (this.type == NodeType.SEMI) {
+        if (this.type == NodeType.SEMI) { // Gestion du point virgule
             if (this.leftSon != null) {
                 this.leftSon.genereCode(lignes);
             }
+
             if (this.rightSon != null) {
                 this.rightSon.genereCode(lignes);
             }
-        } else if (this.type == NodeType.INTEGER || this.type == NodeType.IDENT) {
-            String inter = "";
-            if(this.value.contains("-")){
+        }
+
+        else if (this.type == NodeType.INTEGER || this.type == NodeType.IDENT) { // Gestion des entiers et des identifiants
+            if (this.value.contains("-")) { // Gestion du moins unaire
                 lignes.add("mov eax, 0");
-                lignes.add("sub eax,"+this.value.substring(1));
-            }else{
+                lignes.add("sub eax," + this.value.substring(1));
+            } else {
                 lignes.add("mov eax, " + this.value);
             }
+        }
 
-
-        } else if (this.type == NodeType.LET) {
+        else if (this.type == NodeType.LET) { // Gestion de la déclaration de variables
             this.rightSon.genereCode(lignes);
-            lignes.add("mov "+this.leftSon.value +",eax");
-        } else {
-            leftSon.genereCode(lignes);
+            lignes.add("mov " + this.leftSon.value + ",eax");
+        }
+
+        else if (this.type == NodeType.IF) {
+            String etiq_sinon = getNumEtiquette("etiq_sinon", lignes);
+            this.leftSon.genererCondition(etiq_sinon, lignes);
+            this.rightSon.leftSon.genereCode(lignes);
+            String etiq_fin = getNumEtiquette("etiq_fin", lignes);
+            lignes.add("jmp " + etiq_fin);
+            lignes.add(etiq_sinon + " :");
+            this.rightSon.rightSon.genereCode(lignes);
+            lignes.add(etiq_fin + " :");
+        }
+
+        else {
+            // Evaluation et stockage des valeurs des arbres gauche et droit
+            this.leftSon.genereCode(lignes);
             lignes.add("push eax");
-            rightSon.genereCode(lignes);
+            this.rightSon.genereCode(lignes);
             lignes.add("pop ebx");
-            if (this.type == NodeType.PLUS) {
+
+            if (this.type == NodeType.PLUS) { // Gestion de l'addition
                 lignes.add("add eax, ebx");
             }
-            if (this.type == NodeType.SUB) {
+
+            if (this.type == NodeType.SUB) { // Gestion de la soustraction
                 lignes.add("sub ebx, eax");
                 lignes.add("mov eax, ebx");
             }
-            if (this.type == NodeType.MULT) {
+
+            if (this.type == NodeType.MULT) { // Gestion de la multiplication
                 lignes.add("mul eax, ebx");
             }
-            if (this.type == NodeType.DIV) {
+
+            if (this.type == NodeType.DIV) { // Gestion de la division
                 lignes.add("div ebx, eax");
                 lignes.add("mov eax, ebx");
             }
-            if(this.type == NodeType.MOD){
+
+            if (this.type == NodeType.MOD) { // Gestion du modulo (recupération du nombre de divisions possibles puis soustraction pour obtenir le reste)
                 lignes.add("mov ecx, ebx");
                 lignes.add("div ebx, eax");
                 lignes.add("mul eax, ebx");
@@ -148,7 +168,37 @@ public class Arbre {
                 lignes.add("mov eax, ecx");
             }
         }
+
         return lignes;
+    }
+
+    public void genererCondition (String etiquetteSaut, ArrayList<String> lignes) {
+        this.leftSon.genereCode(lignes);
+        lignes.add("push eax");
+        this.rightSon.genereCode(lignes);
+        lignes.add("pop ebx");
+        //lignes.add("cmp eax, ebx");
+        lignes.add("sub ebx, eax");
+        if (this.type == NodeType.GT) {
+            lignes.add("jg " + etiquetteSaut);
+        }
+    }
+
+    public String getNumEtiquette(String etiquette, ArrayList<String> lignes) {
+        int nbOccurences = 1; // Pour avoir des etiquettes qui commencent à 1
+        String etiquetteFinale = etiquette + "_" + Integer.toString(nbOccurences);
+        for (int i = 0; i < lignes.size(); i++) {
+            System.out.println("--------------------------------------");
+            String ligneCourante = lignes.get(i);
+            System.out.println("LC = " + ligneCourante);
+            System.out.println("EQ = " + etiquetteFinale + " :");
+            if (ligneCourante.equals(etiquetteFinale + " :")) {
+                System.out.println("Yo");
+                nbOccurences++;
+                etiquetteFinale = etiquette + "_" + Integer.toString(nbOccurences);
+            }
+        }
+        return etiquetteFinale;
     }
 
 }

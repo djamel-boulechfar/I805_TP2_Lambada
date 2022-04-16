@@ -8,6 +8,7 @@ public enum NodeType {
     SUB,
     DIV,
     MOD,
+    LET,
     VARIABLE,
     SEMI,
     IDENT,
@@ -22,6 +23,5 @@ public enum NodeType {
     IF,
     THEN,
     WHILE,
-    NOT,
-    LET
+    NOT
     }
