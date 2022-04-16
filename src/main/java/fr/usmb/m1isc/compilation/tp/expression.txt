@@ -1,5 +1,2 @@
-let x = 2;
-let y = 2;
-let true = 0;
-let false = 1;
-if ((x + 1) = (y + 1)) then true else false.
+let x = 5;
+output x.

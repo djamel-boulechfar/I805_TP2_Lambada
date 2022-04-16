@@ -42,7 +42,7 @@ public class Arbre {
         String res = "";
 
         //Si opération ou changement d'expression, on ouvre les parenthèses
-        if (type == NodeType.PLUS || type == NodeType.MOD  || type == NodeType.SUB  || type == NodeType.MULT  || type == NodeType.DIV  || type == NodeType.LET || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
+        if (type == NodeType.PLUS || type == NodeType.MOD  || type == NodeType.SUB  || type == NodeType.MULT  || type == NodeType.DIV  || type == NodeType.LET || type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL || type == NodeType.IF || type == NodeType.OUTPUT) {
             res += "(" + value;
         } else {
             res += " " + value;
@@ -56,7 +56,7 @@ public class Arbre {
         }
 
         //Si opération ou changement d'expression, on ferme les parenthèses
-        if (type == NodeType.PLUS || type == NodeType.MOD  || type == NodeType.SUB  || type == NodeType.MULT  || type == NodeType.DIV  || type == NodeType.LET ||type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL) {
+        if (type == NodeType.PLUS || type == NodeType.MOD  || type == NodeType.SUB  || type == NodeType.MULT  || type == NodeType.DIV  || type == NodeType.LET ||type == NodeType.SEMI || type == NodeType.GTE ||type == NodeType.GT || type == NodeType.AND ||type == NodeType.OR || type == NodeType.EGAL || type == NodeType.IF || type == NodeType.OUTPUT) {
             res += ")";
         }
         return res;
@@ -69,9 +69,11 @@ public class Arbre {
             System.out.print(" " + value);
         }
         if (leftSon != null) {
+            System.out.print("#ls");
             leftSon.afficheArbre();
         }
         if (rightSon != null) {
+            System.out.print("#rs");
             rightSon.afficheArbre();
         }
         if (type == NodeType.OPERATOR) {
@@ -121,7 +123,7 @@ public class Arbre {
 
         else if (this.type == NodeType.LET) { // Gestion de la déclaration de variables
             this.rightSon.genereCode(lignes);
-            lignes.add("\tmov " + this.leftSon.value + ",eax");
+            lignes.add("\tmov " + this.leftSon.value + ", eax");
         }
 
         else if (this.type == NodeType.IF) {
@@ -133,6 +135,11 @@ public class Arbre {
             lignes.add(etiq_sinon + " :");
             this.rightSon.rightSon.genereCode(lignes);
             lignes.add(etiq_fin + " :");
+        }
+
+        else if (this.type == NodeType.OUTPUT) {
+            lignes.add("\tmov eax, " + this.leftSon.value);
+            lignes.add("\tout eax");
         }
 
         else {
@@ -173,27 +180,26 @@ public class Arbre {
     }
 
     public void genererCondition (String etiquetteSaut, ArrayList<String> lignes) {
-        this.leftSon.genereCode(lignes);
-        lignes.add("\tpush eax");
-        this.rightSon.genereCode(lignes);
-        lignes.add("\tpop ebx");
-        lignes.add("\tsub ebx, eax");
+        if (this.type == NodeType.AND || this.type == NodeType.OR) {
 
-        if (this.type == NodeType.GT) {
-            lignes.add("\tjg " + etiquetteSaut);
-        }
+        } else {
+            this.leftSon.genereCode(lignes);
+            lignes.add("\tpush eax");
+            this.rightSon.genereCode(lignes);
+            lignes.add("\tpop ebx");
+            lignes.add("\tsub eax, ebx");
 
-        if (this.type == NodeType.GTE) {
-            lignes.add("\tjge " + etiquetteSaut);
-        }
+            if (this.type == NodeType.GT) {
+                lignes.add("\tjl " + etiquetteSaut); // Si eax < ebx alors on saute au sinon
+            }
 
-        if (this.type == NodeType.EGAL) {
-            lignes.add("\tjnz " + etiquetteSaut);
-        }
+            if (this.type == NodeType.GTE) {
+                lignes.add("\tjle " + etiquetteSaut); // Si eax < ebx alors on saute au sinon
+            }
 
-        if (this.type == NodeType.AND) {
-            String etiq_faux = getNumEtiquette("etiq_fin", lignes);
-            this.leftSon.genererCondition(etiq_faux, lignes);
+            if (this.type == NodeType.EGAL) {
+                lignes.add("\tjz " + etiquetteSaut);
+            }
         }
     }
 
