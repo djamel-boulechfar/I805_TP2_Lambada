@@ -108,12 +108,19 @@ public class Arbre {
             if (this.rightSon != null) {
                 this.rightSon.genereCode(lignes);
             }
-        } else if (this.type == NodeType.INTEGER) {
-            lignes.add("mov eax, " + this.value);
-        } else if (this.type == NodeType.LET) {
+        } else if (this.type == NodeType.INTEGER || this.type == NodeType.IDENT) {
+            String inter = "";
+            if(this.value.contains("-")){
+                lignes.add("mov eax, 0");
+                lignes.add("sub eax,"+this.value.substring(1));
+            }else{
+                lignes.add("mov eax, " + this.value);
+            }
 
-        } else if (this.type == NodeType.IDENT) {
-            System.out.println("théo le caca");
+
+        } else if (this.type == NodeType.LET) {
+            this.rightSon.genereCode(lignes);
+            lignes.add("mov "+this.leftSon.value +",eax");
         } else {
             leftSon.genereCode(lignes);
             lignes.add("push eax");
@@ -127,14 +134,13 @@ public class Arbre {
                 lignes.add("mov eax, ebx");
             }
             if (this.type == NodeType.MULT) {
-                lignes.add("mult eax, ebx");
+                lignes.add("mul eax, ebx");
             }
             if (this.type == NodeType.DIV) {
                 lignes.add("div ebx, eax");
                 lignes.add("mov eax, ebx");
             }
         }
-
         return lignes;
     }
 
