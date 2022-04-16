@@ -35,7 +35,7 @@ public class Compilateur {
             ArrayList<String> lignes = new ArrayList<String>();
             arbreAbstrait.genereCode(lignes);
             for (int i = 0; i < lignes.size(); i++) {
-                writer.append("\t " + lignes.get(i) + "\n");
+                writer.append(lignes.get(i) + "\n");
             }
             writer.append("CODE ENDS \n");
             writer.close();

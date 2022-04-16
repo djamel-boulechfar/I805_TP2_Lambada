@@ -1,27 +1,28 @@
 package fr.usmb.m1isc.compilation.tp;
 
 public enum NodeType {
-    INTEGER,
-    OPERATOR,
-    PLUS,
-    MULT,
-    SUB,
-    DIV,
-    MOD,
-    LET,
-    VARIABLE,
-    SEMI,
-    IDENT,
+    INTEGER, // OK
+    OPERATOR, // OK
+    PLUS, // OK
+    MULT, // OK
+    SUB, // OK
+    DIV, // OK
+    MOD, // OK
+    LET, // OK
+    VARIABLE, // OK
+    SEMI, // OK
+    IDENT, // OK
     AND,
     OR,
-    EGAL,
-    GT,
-    GTE,
+    EGAL, // OK
+    GT, // OK
+    GTE, // OK
     OUTPUT,
     INPUT,
     NIL,
-    IF,
-    THEN,
+    IF, // OK
+    THEN, // OK
+    ELSE, // OK
     WHILE,
     NOT
     }
