@@ -17,7 +17,7 @@ public enum NodeType {
     EGAL, // OK
     GT, // OK
     GTE, // OK
-    OUTPUT,
+    OUTPUT, // OK
     INPUT,
     NIL,
     IF, // OK

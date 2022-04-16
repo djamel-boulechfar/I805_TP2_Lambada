@@ -179,6 +179,7 @@ public class Arbre {
         return lignes;
     }
 
+    // Genere du code qui saute à l'étiquette donnée si la condition n'est pas satisfaite
     public void genererCondition (String etiquetteSaut, ArrayList<String> lignes) {
         if (this.type == NodeType.AND || this.type == NodeType.OR) {
 
@@ -198,7 +199,7 @@ public class Arbre {
             }
 
             if (this.type == NodeType.EGAL) {
-                lignes.add("\tjz " + etiquetteSaut);
+                lignes.add("\tjnz " + etiquetteSaut); // Si eax - ebx != 0 on saute au sinon
             }
         }
     }
