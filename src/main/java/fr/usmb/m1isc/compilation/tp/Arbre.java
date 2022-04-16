@@ -140,6 +140,13 @@ public class Arbre {
                 lignes.add("div ebx, eax");
                 lignes.add("mov eax, ebx");
             }
+            if(this.type == NodeType.MOD){
+                lignes.add("mov ecx, ebx");
+                lignes.add("div ebx, eax");
+                lignes.add("mul eax, ebx");
+                lignes.add("sub ecx, eax");
+                lignes.add("mov eax, ecx");
+            }
         }
         return lignes;
     }
