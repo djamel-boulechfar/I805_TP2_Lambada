@@ -122,7 +122,12 @@ public class Arbre {
         }
 
         else if (this.type == NodeType.LET) { // Gestion de la déclaration de variables
-            this.rightSon.genereCode(lignes);
+            if(this.rightSon.type == NodeType.INPUT){
+                lignes.add("\t in eax");
+            }else{
+                this.rightSon.genereCode(lignes);
+            }
+
             lignes.add("\tmov " + this.leftSon.value + ", eax");
         }
 
@@ -140,6 +145,8 @@ public class Arbre {
         else if (this.type == NodeType.OUTPUT) {
             lignes.add("\tmov eax, " + this.leftSon.value);
             lignes.add("\tout eax");
+        } else if(this.type == NodeType.INPUT){
+
         }
 
         else {

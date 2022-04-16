@@ -1,4 +1,2 @@
-let x = 6;
-let y = 6;
-if (x = y) then (let res = 13) else (let res = 1);
-output res.
+let x  = input;
+output x.
