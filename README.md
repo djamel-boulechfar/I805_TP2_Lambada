@@ -45,15 +45,11 @@ Correspond à l'arbre suivant une fois affiché :
 
 ## TP2 et 3 
 
-Une fois l'arbre construit, la génération de code se fait via la classe Compilateur. <br>
+Une fois l'arbre construit, la génération de code se fait via la classe **Compilateur**. <br>
 Cette classe permet l'accès à 2 méthodes: <br>
 -**generateASM**:prenant un arbre en paramètre, cette méthode permet de générer un tableau de String. Pour chacune des lignes du tableau, on retrouve une action effectué en assembleur. <br>
 Cette méthode récursive prend aussi en paramètre le tableau contenant les lignes de codes déjà traité dans l'arbre. <br>
-Cette classe permet l'accès à 2 méthodes :
-<br>
--**generateASM**: prenant un arbre en paramètre, cette méthode permet de générer le fichier asm en fonction du contenue de l'arbre.
-<br>
-Celui-ci est parcouru une première fois afin de connaître les variables puis une seconde fois afin de générer le code des opérations.
+Celui-ci est parcouru une première fois afin de connaître les variables puis une seconde fois afin de générer le code des opérations. <br>
 -**testASM**: méthode générant du code dans le fichier "compileTest.asm" un code générique  de test.
 <br>
 
