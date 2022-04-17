@@ -2,4 +2,3 @@ let age = input;
 let taille = input;
 if( (taille<150) and (age<16)) then 16 else 20;
 output eax.
-
