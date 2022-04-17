@@ -8,13 +8,13 @@ L'objectif du TP est d'utiliser les outils JFlex et CUP pour générer des arbre
 
 Afin de répondre à la problématique posée, une classe Arbre à été créée avec les attributs suivants:
 <br>
-* **type** : type abstrait permettant d'identifier le type du noeud concerné (entier, opérateur d'addition, de soustraction, boucle while ...)
+-**type** : type abstrait permettant d'identifier le type du noeud concerné (entier, opérateur d'addition, de soustraction, boucle while ...)
 <br>
-* **value**: la valeur correspondant au noeud. Celle-ci est une chaîne de caractères en correspondance avec le type
+-**value**: la valeur correspondant au noeud. Celle-ci est une chaîne de caractères en correspondance avec le type
 <br>
-* **leftSon**: un arbre correspondant une partie du code 
+-**leftSon**: un arbre correspondant une partie du code 
 <br>
-* **rightSon** un arbre correspondant une partie du code
+-**rightSon** un arbre correspondant une partie du code
 <br>
 **/!\Attention: La valeur de leftSon et rightSon est dictée par le type de l'arbre, ainsi le fils gauche et droit n'ont pas forcément le même rôle.**
 <br>
@@ -48,10 +48,10 @@ Correspond à l'arbre suivant une fois affiché :
 Une fois l'arbre construit, la génération de code se fait via la classe **Compilateur**. <br>
 Cette classe permet l'accès à 2 méthodes :
 <br>
-* **generateASM**: prenant un arbre en paramètre, cette méthode permet de générer un tableau de String. Pour chacune des lignes du tableau, on retrouve une action effectué en assembleur. <br>
+-**generateASM**: prenant un arbre en paramètre, cette méthode permet de générer un tableau de String. Pour chacune des lignes du tableau, on retrouve une action effectué en assembleur. <br>
 Cette méthode récursive prend aussi en paramètre le tableau contenant les lignes de code déjà traitées dans l'arbre. <br>
 Celui-ci est parcouru une première fois afin de connaître les variables puis une seconde fois afin de générer le code des opérations. <br>
-* **testASM**: méthode générant du code dans le fichier "compileTest.asm" un code générique  de test.
+-**testASM**: méthode générant du code dans le fichier "compileTest.asm" un code générique  de test.
 <br>
 
 Après génération de l'arbre, l'appel à la méthode **generateASM** va permettre d'obtenir un fichier "fichierCompile.asm"
@@ -62,9 +62,9 @@ qui va, en fonction du type de chaque noeud de l'arbre, générer le code assemb
 
 Afin de gérer correctement les comparaisons et l'utilsiation des boucles conditionnelles,
 plusieurs méthodes ont été utilisées: <br> 
-* **getNumEtiquette**: méthode permettant de créer une "étiquette" soit un point de passage pour l'utilisation de conditions et ainsi 
+-**getNumEtiquette**: méthode permettant de créer une "étiquette" soit un point de passage pour l'utilisation de conditions et ainsi 
 passer aux codes correspondant à la validation de la condition ou non. <br>
-* **genererCondition** et **genererConditionOu**: ces méthodes permettent de générer le code correspondant au différentes opérations conditionnelles et ainsi de sauter à l'étiquette satisfaisant (ou non) la condition. <br>
+-**genererCondition** et **genererConditionOu**: ces méthodes permettent de générer le code correspondant au différentes opérations conditionnelles et ainsi de sauter à l'étiquette satisfaisant (ou non) la condition. <br>
 
 **/!\\ Remarque /!\\**
 <br>
@@ -350,9 +350,9 @@ On tombe alors sur les résultats suivants :
 
 Afin de pouvoir utiliser le compilateur, voici les consignes à suivre :
 <br>
-* **1 - Ecrire le code :** dans un premier temps, saisissez le code à compiler dans le fichier "expression.txt" ou alors lancez directement le fichier main pour écrire le code dans le terminal <br>
-* **2 - Compilation :** une fois écrit, vous pourrez trouver le code généré dans le fichier "fichierCompile.asm".<br>
-* **3 - Execution:** vous pourrez enfin executer le code via l'utilisation de la machine à registres en vous plaçant dans le dossier ***/src/main/compiledFiles*** (à partir de la racine du projet) et en executant la commande suivante:
+- **1 - Ecrire le code :** dans un premier temps, saisissez le code à compiler dans le fichier "expression.txt" ou alors lancez directement le fichier main pour écrire le code dans le terminal <br>
+- **2 - Compilation :** une fois écrit, vous pourrez trouver le code généré dans le fichier "fichierCompile.asm".<br>
+- **3 - Execution:** vous pourrez enfin executer le code via l'utilisation de la machine à registres en vous plaçant dans le dossier ***/src/main/compiledFiles*** (à partir de la racine du projet) et en executant la commande suivante:
 
 ```
 java -jar vm-0.9.jar fichierCompile.asm
