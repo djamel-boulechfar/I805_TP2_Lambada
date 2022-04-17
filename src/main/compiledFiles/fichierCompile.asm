@@ -1,41 +1,44 @@
 DATA SEGMENT 
 DATA ENDS 
 CODE SEGMENT 
-	mov eax, 1
+	mov eax, 12
+	push eax
+	mov eax, 5
+	pop ebx
+	add eax, ebx
+	mov eax, 10
 	push eax
 	mov eax, 2
 	pop ebx
-	sub eax, ebx
-	jg etiq_cond_ok_1
-	mov eax, 3
-	push eax
-	mov eax, 4
-	pop ebx
-	sub eax, ebx
-	jg etiq_cond_ok_1
-	jmp etiq_sinon_1
-	mov eax, 1
+	div ebx, eax
+	mov eax, ebx
 	push eax
 	mov eax, 3
 	pop ebx
-	sub eax, ebx
-	jg etiq_cond_ok_1
-	mov eax, 4
+	sub ebx, eax
+	mov eax, ebx
+	mov eax, 99
+	mov eax, 30
+	push eax
+	mov eax, 1
+	pop ebx
+	mul eax, ebx
 	push eax
 	mov eax, 4
 	pop ebx
-	sub eax, ebx
-	jz etiq_cond_ok_1
-	jmp etiq_sinon_1
-	jmp etiq_sinon_1
-	mov eax, 1
-	jmp etiq_fin_1
-etiq_cond_ok_1 : 
-	mov eax, 1
-	jmp etiq_fin_1
-etiq_sinon_1 :
+	add eax, ebx
+	push eax
+	mov eax, 2
+	pop ebx
+	mov ecx, ebx
+	div ebx, eax
+	mul eax, ebx
+	sub ecx, eax
+	mov eax, ecx
+	mov eax, 3
+	push eax
 	mov eax, 0
-etiq_fin_1 : 
-	mov eax, eax
-	out eax
+	sub eax, 4
+	pop ebx
+	mul eax, ebx
 CODE ENDS 

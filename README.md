@@ -4,11 +4,22 @@
 
 L'objectif du TP est d'utiliser les outils JFlex et CUP pour générer des arbres abstraits correspondant à un sous ensemble du langage **λ-ada**.
 
-## Exercice 1 :
 
-Utiliser JFlex et CUP pour générer l'arbre abstrait correspondant à l'analyse d'expressions arithmétiques sur les nombres entiers.
 
-Exemple de fichier source pour l'analyseur :
+##TP1
+
+Afin de répondre à la problématique posé, une classe Arbre à été écrite avec les attributs suivants: <br>
+-**type** : type abstrait permettant d'identifier le type du noeud concerné (Entier, addition, soustraction, boucle while ...) <br>
+-**value**: la valeur correspondant au noeud. Celle-ci est une chaine de caractère en correspondance avec le type <br>
+-**leftSon**: un arbre correspondant une partie du code <br>
+-**rightSon** un arbre correspondant une partie du code <br>
+**/!\Attention: La valeur de leftSon et rightSon est dictée par le type de l'arbre, ainsi le fils gauche et droit non pas forcément le même rôle.** <br>
+**Par exemple, si l'arbre est de type identifieur, alors le fils gauche portera le nom de la variable tandis que l'arbre droit  portera la valeur**
+
+###Exercice 1 et 2 :
+
+Après complétion de la grammaire, un code complet correspondant au langage **λ-ada** peut être écrit et transposer sous forme d'arbre.
+Par exemple, le code suivant:
 
 ```
 12 + 5;             /* ceci est un commentaire */
@@ -22,57 +33,28 @@ let prixTtc =  prixHt * 119 / 100;
 prixTtc + 100.
 ```
 
-L'expression
+Correspond à l'arbre suivant une fois affiché:
 
 ```
-let prixTtc =  prixHt * 119 / 100;
-prixTtc + 100
-```
-pourra donner, par exemple, l'arbre suivant :
-
-![exemple arbre abtrait](arbre.png "arbre abstrait")
-
-Une fois l'arbre généré, récupérez le dans le programme pricipal et affichez le, par exemple sous la forme d'une expression préfixée parenthésée :
-`(; (LET prixTtc (/ (* prixHt 119) 100)) (+ prixTtc 100))`
-
-## Exercice 2 :
-
-Compléter la grammaire précédente en y ajoutant les opérateurs booléens, ceux de comparaison, la boucle et la conditionnelle, afin d'obtenir un sous-ensemble du langage **λ-ada** un peu plus complet.
-
-Grammaire abstraite du sous-ensemble de λ-ada correspondant :
-
-```
-expression → expression ';' expression  
-expression → LET IDENT '=' expression
-expression → IF expression THEN expression ELSE expression
-expression → WHILE expression DO expression
-expression → '-' expression
-expression → expression '+' expression
-expression → expression '-' expression
-expression → expression '*' expression
-expression → expression '/' expression
-expression → expression MOD expression
-expression → expression '<' expression
-expression → expression '<=' expression
-expression → expression '=' expression
-expression → expression AND expression
-expression → expression OR expression
-expression → NOT expression 
-expression → OUTPUT expression 
-expression → INPUT | NIL | IDENT | ENTIER
+(;(+ 12 5)(;(-(/ 10 2) 3)(; 99(;(mod(+(* 30 1) 4) 2)(* 3 - 4)))))
 ```
 
-Le langage obtenu est tout de suite un peu plus intéressant et permet de programmer plus de choses.
+##TP2 et 3 
 
-Exemple de programme possible pour le sous-ensemble de λ-ada considéré ici : calcul de PGCD.
+Une fois l'arbre construit, la génération de code se fait via la classe Compilateur. <br>
+Cette classe permet l'accès à 2 méthodes: <br>
+-**generateASM**:prenant un arbre en paramètre, cette méthode permet de générer le fichier asm en fonction du contenue de l'arbre. <br>
+Celui-ci est parcouru une première fois afin de connaître les variables puis une seconde fois afin de générer le code des opérations.
+-**testASM**: méthode générant du code dans le fichier "compileTest.asm" un code générique  de test. <br>
 
-```
-let a = input;
-let b = input;
-while (0 < b)
-do (let aux=(a mod b); let a=b; let b=aux );
-output a .
-```
+Après génération de l'arbre, l'appel à **generateASM** va permettre d'obtenir un fichier "fichierCompile.asm"
+compilable via l'utilisation de la machine à registre.
+
+
+
+
+
+
 
 
 
