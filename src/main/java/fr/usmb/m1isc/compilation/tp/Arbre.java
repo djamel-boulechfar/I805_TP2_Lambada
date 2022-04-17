@@ -11,7 +11,6 @@ public class Arbre {
     private String value;
     private Arbre leftSon;
     private Arbre rightSon;
-
     // Constructeurs
     public Arbre() {}
 
@@ -123,7 +122,7 @@ public class Arbre {
 
         else if (this.type == NodeType.LET) { // Gestion de la déclaration de variables
             if(this.rightSon.type == NodeType.INPUT){
-                lignes.add("\t in eax");
+                lignes.add("\tin eax");
             }else{
                 this.rightSon.genereCode(lignes);
             }
@@ -145,7 +144,26 @@ public class Arbre {
         else if (this.type == NodeType.OUTPUT) {
             lignes.add("\tmov eax, " + this.leftSon.value);
             lignes.add("\tout eax");
-        } else if(this.type == NodeType.INPUT){
+
+        }
+        else if(this.type == NodeType.WHILE){
+            //Generation des étiquettes
+            String etiqDebWhile = getNumEtiquette("debut_while",lignes);
+            lignes.add(etiqDebWhile +" : ");
+            String etiqFinWhile = getNumEtiquette("fin_while",lignes);
+            String etiqCondNotOK  = getNumEtiquette("etiq_cond_not_ok",lignes);
+            String etiqActionWhile = getNumEtiquette("etiq_action_while",lignes);
+
+            this.leftSon.genererCondition(etiqCondNotOK,lignes);
+            lignes.add("\tmov eax, 1");
+            lignes.add("\tjmp "+etiqActionWhile);
+            lignes.add(etiqCondNotOK+" : ");
+            lignes.add("\tmov eax, 0");
+            lignes.add(etiqActionWhile+" : ");
+            lignes.add("jz "+etiqFinWhile);
+            this.rightSon.genereCode(lignes);
+            lignes.add("\tjmp "+etiqDebWhile);
+            lignes.add(etiqFinWhile+" : ");
 
         }
 
