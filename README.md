@@ -8,16 +8,11 @@ L'objectif du TP est d'utiliser les outils JFlex et CUP pour générer des arbre
 
 Afin de répondre à la problématique posée, une classe Arbre à été créée avec les attributs suivants:
 <br>
-- **type** : type abstrait permettant d'identifier le type du noeud concerné (entier, opérateur d'addition, de soustraction, boucle while ...)
-<br>
-- **value**: la valeur correspondant au noeud. Celle-ci est une chaîne de caractères en correspondance avec le type
-<br>
-- **leftSon**: un arbre correspondant une partie du code 
-<br>
-- **rightSon** un arbre correspondant une partie du code
-<br>
-**/!\Attention: La valeur de leftSon et rightSon est dictée par le type de l'arbre, ainsi le fils gauche et droit n'ont pas forcément le même rôle.**
-<br>
+- **type** : type abstrait permettant d'identifier le type du noeud concerné (entier, opérateur d'addition, de soustraction, boucle while ...)<br>
+- **value**: la valeur correspondant au noeud. Celle-ci est une chaîne de caractères en correspondance avec le type<br>
+- **leftSon**: un arbre correspondant une partie du code <br>
+- **rightSon** un arbre correspondant une partie du code<br>
+**/!\Attention: La valeur de leftSon et rightSon est dictée par le type de l'arbre, ainsi le fils gauche et droit n'ont pas forcément le même rôle.**<br>
 **Par exemple, si l'arbre est de type identificateur, alors le fils gauche portera le nom de la variable tandis que l'arbre droit portera la valeur**
 
 ### Exercice 1 et 2 :
