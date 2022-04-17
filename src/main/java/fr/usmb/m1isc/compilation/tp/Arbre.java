@@ -160,7 +160,7 @@ public class Arbre {
             lignes.add(etiqCondNotOK+" : ");
             lignes.add("\tmov eax, 0");
             lignes.add(etiqActionWhile+" : ");
-            lignes.add("jz "+etiqFinWhile);
+            lignes.add("\tjz "+etiqFinWhile);
             this.rightSon.genereCode(lignes);
             lignes.add("\tjmp "+etiqDebWhile);
             lignes.add(etiqFinWhile+" : ");
@@ -215,11 +215,11 @@ public class Arbre {
             lignes.add("\tpop ebx");
             lignes.add("\tsub eax, ebx");
 
-            if (this.type == NodeType.GT) {
+            if (this.type == NodeType.GTE) {
                 lignes.add("\tjl " + etiquetteSaut); // Si eax < ebx alors on saute au sinon
             }
 
-            if (this.type == NodeType.GTE) {
+            if (this.type == NodeType.GT) {
                 lignes.add("\tjle " + etiquetteSaut); // Si eax < ebx alors on saute au sinon
             }
 

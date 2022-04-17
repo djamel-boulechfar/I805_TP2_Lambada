@@ -16,13 +16,13 @@ debut_while_1 :
 	mov eax, b
 	pop ebx
 	sub eax, ebx
-	jl etiq_cond_not_ok_1
+	jle etiq_cond_not_ok_1
 	mov eax, 1
 	jmp etiq_action_while_1
 etiq_cond_not_ok_1 : 
 	mov eax, 0
 etiq_action_while_1 : 
-jz fin_while_1
+	jz fin_while_1
 	mov eax, a
 	push eax
 	mov eax, b
