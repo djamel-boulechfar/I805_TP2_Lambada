@@ -89,7 +89,9 @@ public class Arbre {
 
     public ArrayList<String> getVariables(ArrayList<String> variables) {
         if (this.type == NodeType.LET && !variables.contains(this.value)) {
-            variables.add(this.leftSon.value);
+            if (!variables.contains(this.leftSon.value)) {
+                variables.add(this.leftSon.value);
+            }
         }
         if (this.leftSon != null) {
             leftSon.getVariables(variables);
