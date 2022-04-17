@@ -18,11 +18,11 @@ public enum NodeType {
     GT, // OK
     GTE, // OK
     OUTPUT, // OK
-    INPUT,
+    INPUT, // OK
     NIL,
     IF, // OK
     THEN, // OK
     ELSE, // OK
-    WHILE,
+    WHILE, // OK
     NOT
     }

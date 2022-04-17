@@ -1,6 +1,6 @@
-let a = input;
+let c = input;
 let b = input;
 while (0 < b)
-do (let aux=(a mod b); let a=b; let b=aux );
-output a
+do (let aux=(c mod b); let c=b; let b=aux );
+output c
 .

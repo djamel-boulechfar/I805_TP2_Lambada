@@ -1,13 +1,11 @@
 DATA SEGMENT 
-	 a DD
+	 c DD
 	 b DD
 	 aux DD
-	 a DD
-	 b DD
 DATA ENDS 
 CODE SEGMENT 
 	in eax
-	mov a, eax
+	mov c, eax
 	in eax
 	mov b, eax
 debut_while_1 : 
@@ -23,7 +21,7 @@ etiq_cond_not_ok_1 :
 	mov eax, 0
 etiq_action_while_1 : 
 	jz fin_while_1
-	mov eax, a
+	mov eax, c
 	push eax
 	mov eax, b
 	pop ebx
@@ -34,11 +32,11 @@ etiq_action_while_1 :
 	mov eax, ecx
 	mov aux, eax
 	mov eax, b
-	mov a, eax
+	mov c, eax
 	mov eax, aux
 	mov b, eax
 	jmp debut_while_1
 fin_while_1 : 
-	mov eax, a
+	mov eax, c
 	out eax
 CODE ENDS 
