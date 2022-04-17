@@ -131,14 +131,27 @@ public class Arbre {
         }
 
         else if (this.type == NodeType.IF) {
-            String etiq_sinon = getNumEtiquette("etiq_sinon", lignes);
-            this.leftSon.genererCondition(etiq_sinon, lignes);
-            this.rightSon.leftSon.genereCode(lignes);
-            String etiq_fin = getNumEtiquette("etiq_fin", lignes);
-            lignes.add("\tjmp " + etiq_fin);
-            lignes.add(etiq_sinon + " :");
-            this.rightSon.rightSon.genereCode(lignes);
-            lignes.add(etiq_fin + " :");
+            /*if(this.leftSon.type == NodeType.AND){
+                String etiq_fin_and = getNumEtiquette("etiq_fin_and",lignes);
+                String etiq_sinon = getNumEtiquette("etiq_sinon", lignes);
+                this.leftSon.genererCondition(etiq_fin_and,lignes);
+                this.rightSon.leftSon.genereCode(lignes);
+                String etiq_fin = getNumEtiquette("etiq_fin", lignes);
+                lignes.add("\tjmp " + etiq_fin);
+                lignes.add(etiq_sinon + " :");
+                this.rightSon.rightSon.genereCode(lignes);
+                lignes.add(etiq_fin + " :");
+            } else{*/
+                String etiq_sinon = getNumEtiquette("etiq_sinon", lignes);
+                this.leftSon.genererCondition(etiq_sinon, lignes);
+                this.rightSon.leftSon.genereCode(lignes);
+                String etiq_fin = getNumEtiquette("etiq_fin", lignes);
+                lignes.add("\tjmp " + etiq_fin);
+                lignes.add(etiq_sinon + " :");
+                this.rightSon.rightSon.genereCode(lignes);
+                lignes.add(etiq_fin + " :");
+            //}
+
         }
 
         else if (this.type == NodeType.OUTPUT) {
@@ -147,6 +160,7 @@ public class Arbre {
 
         }
         else if(this.type == NodeType.WHILE){
+
             //Generation des étiquettes
             String etiqDebWhile = getNumEtiquette("debut_while",lignes);
             lignes.add(etiqDebWhile +" : ");
@@ -154,6 +168,7 @@ public class Arbre {
             String etiqCondNotOK  = getNumEtiquette("etiq_cond_not_ok",lignes);
             String etiqActionWhile = getNumEtiquette("etiq_action_while",lignes);
 
+            //Generation du code
             this.leftSon.genererCondition(etiqCondNotOK,lignes);
             lignes.add("\tmov eax, 1");
             lignes.add("\tjmp "+etiqActionWhile);
@@ -206,9 +221,14 @@ public class Arbre {
 
     // Genere du code qui saute à l'étiquette donnée si la condition n'est pas satisfaite
     public void genererCondition (String etiquetteSaut, ArrayList<String> lignes) {
-        if (this.type == NodeType.AND || this.type == NodeType.OR) {
+        if (this.type == NodeType.AND ) {
+            this.leftSon.genererCondition(etiquetteSaut,lignes);
+            this.rightSon.genererCondition(etiquetteSaut,lignes);
+        }
+        else if(this.type == NodeType.OR){
 
-        } else {
+        }
+        else {
             this.leftSon.genereCode(lignes);
             lignes.add("\tpush eax");
             this.rightSon.genereCode(lignes);

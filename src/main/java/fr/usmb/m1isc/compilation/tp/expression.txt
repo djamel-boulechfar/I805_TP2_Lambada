@@ -1,6 +1,2 @@
-let a = input;
-let b = input;
-while (0 < b)
-do (let aux=(a mod b); let a=b; let b=aux );
-output a
-.
+if( (1<2) and (3<4) and (3<6) )then 1 else 0;
+output eax.
