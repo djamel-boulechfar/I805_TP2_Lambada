@@ -1,6 +1,5 @@
-12 + 5;
-10 / 2 - 3;  99;
-((30 * 1) + 4) mod 2;
-3 * -4.
-
+let age = input;
+let taille = input;
+if( (taille<150) and (age<16)) then 16 else 20;
+output eax.
 

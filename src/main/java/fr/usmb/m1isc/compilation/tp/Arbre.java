@@ -254,6 +254,7 @@ public class Arbre {
         }
     }
 
+    // Genere du code qui saute à l'étiquette donnée si la condition n'est pas satisfaite pour le cas des OR
     public void genererConditionOu (String etiquetteSaut,String etiquetteCond, ArrayList<String> lignes) {
         if (this.type == NodeType.AND ) {
             this.leftSon.genererCondition(etiquetteSaut,etiquetteCond,lignes);
